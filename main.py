@@ -3,6 +3,7 @@ from supabase import create_client
 from fastapi.responses import RedirectResponse
 import random
 import string
+from starlette.requests import Request
 
 url = ("https://ipdmueraulauiyhxxkhp.supabase.co")
 
@@ -21,11 +22,18 @@ def create_short(length):
     random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=length))
     return random_string
     
+# @app.post("/post")
+# def post(long):
+#     shorter = create_short(5)
+#     result = db.table("url").insert({"long": long, "short": shorter}).execute()
+#     return "https://url-backend-six.vercel.app/"+ result.data[0]['short']
+    
+    
 @app.post("/post")
-def post(long):
+def post(long: str, request: Request):
     shorter = create_short(5)
-    result = db.table("url").insert({"long": long, "short": shorter}).execute()
-    return "https://url-backend-six.vercel.app/"+ result.data[0]['short']
+    db.table("url").insert({"long": long, "short": shorter}).execute()
+    return f"https://url-backend-six.vercel.app/{shorter}"
     
     
      
