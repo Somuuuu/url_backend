@@ -32,3 +32,7 @@ def post(long):
 def get(short):
     result = db.table("url").select("long").eq("short", short).execute()
     return RedirectResponse(result.data[0]['long'])
+
+@app.get("/get")
+def get_sample():
+    return "This is working fine!!"
