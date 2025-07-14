@@ -4,6 +4,7 @@ from fastapi.responses import RedirectResponse
 import random
 import string
 from starlette.requests import Request
+from fastapi.responses import PlainTextResponse
 
 url = ("https://ipdmueraulauiyhxxkhp.supabase.co")
 
@@ -42,6 +43,6 @@ def get(short):
     result = db.table("url").select("long").eq("short", short).execute()
     return RedirectResponse(result.data[0]['long'])
 
-@app.get("/get")
+@app.get("/get", response_class=PlainTextResponse)
 def get_sample():
     return "This is working fine!!"
