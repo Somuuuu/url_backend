@@ -25,7 +25,8 @@ def create_short(length):
 def post(long):
     shorter = create_short(5)
     result = db.table("url").insert({"long": long, "short": shorter}).execute()
-    return "http://127.0.0.1:8000/"+ result.data[0]['short']
+    return "https://url-backend-six.vercel.app/"+ result.data[0]['short']
+    
     
      
 @app.get("/{short}")
